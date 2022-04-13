@@ -1,24 +1,29 @@
 import logo from './logo.svg';
 import './App.css';
-
+import { useSelector } from 'react-redux';
+import store from './store/store';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import Addproduct from './pages/addproduct';
+import Productlist from './pages/productlist';
 function App() {
+
+  const state = useSelector(store => store);
+
+  console.log(state)
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/'>
+          <Route path='product' element={<Outlet/>}>
+            <Route path='list' element={<Productlist />} />
+            <Route path='add' element={<Addproduct />} />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
